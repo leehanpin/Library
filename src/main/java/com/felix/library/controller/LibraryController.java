@@ -1,12 +1,16 @@
 package com.felix.library.controller;
 
 import com.felix.library.entity.Book;
+import com.felix.library.entity.Member;
+import com.felix.library.entity.RentalRecord;
+import com.felix.library.entity.container.BookContainer;
+import com.felix.library.entity.container.MemberContainer;
+import com.felix.library.entity.container.RentalRecordContainer;
+import com.felix.library.responseContainer.ResponseBook;
+import com.felix.library.responseContainer.ResponseMember;
 import com.felix.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/lib")
@@ -16,42 +20,60 @@ public class LibraryController {
     private LibraryService bookService;
 
     //這邊純粹亂玩
-    @GetMapping("/sys/{application}/{id}")
-    public Book test(@PathVariable(value = "application", required = false) String application,
-                     @PathVariable(value = "id", required = false) Integer id) {
-        System.out.println(application);
-        System.out.println(id);
-        if ("borrowBook".equalsIgnoreCase(application)){
-            return bookService.borrowBooks(id);
-        }else if ("returnBook".equalsIgnoreCase(application)){
-            return bookService.returnBook(id);
-        }
-        return new Book();
+    @PostMapping("/sys")
+    public void test(@RequestBody Member ttt) {
+
+        System.out.println(ttt);
     }
 
     @PostMapping("/insert")
-    public void insertBook(@RequestBody Map<String, String> book) {
-        bookService.insertBook(book.get("BookName"));
+    public ResponseBook insertBook(@RequestBody Book book) {
+        BookContainer container = BookContainer.builder()
+                .bookName(book.getBookName()).build();
+
+        return bookService.insertBook(container.getBookName());
+    }
+
+    @PostMapping("/register")
+    public ResponseMember register(@RequestBody Member member) {
+        MemberContainer container = MemberContainer.builder()
+                .name(member.getName())
+                .mail(member.getMail())
+                .phone(member.getPhone())
+                .build();
+        return bookService.register(container);
     }
 
     @GetMapping("/showList")
-    public List<Book> showList() {
+    public ResponseBook showList() {
         return bookService.bookList();
     }
 
-    @PostMapping("/borrowBook/{id}")
-    public Book borrowBooks(@PathVariable(value = "id", required = false) Integer id) {
-        return bookService.borrowBooks(id);
+    @PostMapping("/borrowBook")
+    public ResponseBook borrowBooks(@RequestBody RentalRecord rentalRecord) {
+        RentalRecordContainer container = RentalRecordContainer.builder()
+                .bookId(rentalRecord.getBookId())
+                .memberId(rentalRecord.getMemberId())
+                .build();
+        return bookService.borrowBooks(container);
     }
 
-    @PostMapping("/returnBook/{id}")
-    public Book returnBooks(@PathVariable(value = "id", required = false) Integer id) {
-        return bookService.returnBook(id);
+    @PostMapping("/returnBook")
+    public ResponseBook returnBooks(@RequestBody RentalRecord rentalRecord) {
+        RentalRecordContainer container = RentalRecordContainer.builder()
+                .bookId(rentalRecord.getBookId())
+                .memberId(rentalRecord.getMemberId())
+                .build();
+        return bookService.returnBook(container);
     }
 
-    @PutMapping("/condition/{id}/{condition}")
-    public Book changeCondition(@PathVariable(value = "id", required = false) Integer id,
-                                @PathVariable(value = "condition", required = false) String condition){
-        return bookService.changeCondition(id, condition);
+    @PutMapping("/condition")
+    public ResponseBook changeCondition(@RequestBody Book book) {
+        BookContainer container = BookContainer.builder()
+                .id(book.getId())
+                .condition(book.getCondition())
+                .build();
+        return bookService.changeCondition(container);
     }
+
 }

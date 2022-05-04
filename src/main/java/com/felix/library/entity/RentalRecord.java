@@ -21,6 +21,8 @@ public class RentalRecord {
 
     private Integer bookId;
 
+    private Integer memberId;
+
     private String bookName;
 
     private String status;
