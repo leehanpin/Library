@@ -9,9 +9,9 @@ public interface LibraryService extends Library {
 
     List<Book> bookList();
 
-    Map<String, String> borrowBooks(String BookName);
+    Book borrowBooks(Integer id);
 
-    Map<String, String> returnBook(String BookName);
+    Book returnBook(Integer id);
 
     void insertBook(String BookName);
 }

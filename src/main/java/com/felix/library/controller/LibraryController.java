@@ -25,20 +25,18 @@ public class LibraryController {
         bookService.insertBook(book.get("BookName"));
     }
 
-    @PostMapping("/showList")
+    @GetMapping("/showList")
     public List<Book> showList() {
         return bookService.bookList();
     }
 
-    @PostMapping("/borrowBook")
-    public Map<String, String> borrowBooks(@RequestBody Map<String, String> book) {
-        System.out.println(book);
-        return bookService.borrowBooks(book.get("BookName"));
+    @PostMapping("/borrowBook/{id}")
+    public Book borrowBooks(@PathVariable(value = "id", required = false) Integer id) {
+        return bookService.borrowBooks(id);
     }
 
-    @PostMapping("/returnBook")
-    public Map<String, String> returnBooks(@RequestBody Map<String, String> book) {
-        System.out.println(book);
-        return bookService.returnBook(book.get("BookName"));
+    @PostMapping("/returnBook/{id}")
+    public Book returnBooks(@PathVariable(value = "id", required = false) Integer id) {
+        return bookService.returnBook(id);
     }
 }

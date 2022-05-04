@@ -12,4 +12,6 @@ public interface BookRepository extends JpaRepository<Book, String>, JpaSpecific
     @Query(name = "SELECT * FROM BookList WHERE bookName = ?1")
     Book findByBookName(String BookName);
 
+    Book findById(Integer id);
+
 }

@@ -19,10 +19,10 @@ public class RentalRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "bookName")
+    private Integer bookId;
+
     private String bookName;
 
-    @Column(name = "status")
     private String status;
 
     @Temporal(TemporalType.TIMESTAMP)

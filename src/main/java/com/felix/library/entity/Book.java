@@ -17,8 +17,6 @@ public class Book implements Serializable {
 
     private String bookName;
 
-    private Integer quantity;
-
-    private Integer existing;
+    private String existing;
 
 }
