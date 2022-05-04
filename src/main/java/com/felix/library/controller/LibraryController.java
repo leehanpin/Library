@@ -15,9 +15,18 @@ public class LibraryController {
     @Autowired
     private LibraryService bookService;
 
-    @PostMapping("/test")
-    public void test(@RequestBody Map<String, String> test) {
-        System.out.println(test);
+    //這邊純粹亂玩
+    @GetMapping("/sys/{application}/{id}")
+    public Book test(@PathVariable(value = "application", required = false) String application,
+                     @PathVariable(value = "id", required = false) Integer id) {
+        System.out.println(application);
+        System.out.println(id);
+        if ("borrowBook".equalsIgnoreCase(application)){
+            return bookService.borrowBooks(id);
+        }else if ("returnBook".equalsIgnoreCase(application)){
+            return bookService.returnBook(id);
+        }
+        return new Book();
     }
 
     @PostMapping("/insert")
@@ -38,5 +47,11 @@ public class LibraryController {
     @PostMapping("/returnBook/{id}")
     public Book returnBooks(@PathVariable(value = "id", required = false) Integer id) {
         return bookService.returnBook(id);
+    }
+
+    @PutMapping("/condition/{id}/{condition}")
+    public Book changeCondition(@PathVariable(value = "id", required = false) Integer id,
+                                @PathVariable(value = "condition", required = false) String condition){
+        return bookService.changeCondition(id, condition);
     }
 }

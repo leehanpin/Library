@@ -64,15 +64,26 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public void insertBook(String BookName) {
+    public Book changeCondition(Integer id, String condition) {
+        Book book = bookRepository.findById(id);
 
+        if (book == null) return null;
+
+        book.setCondition(condition);
+        bookRepository.save(book);
+
+        return book;
+    }
+
+    @Override
+    public void insertBook(String BookName) {
         Book book = bookRepository.findByBookName(BookName);
 
         book = new Book();
         book.setBookName(BookName);
         book.setExisting("Y");
+        book.setCondition("良好");
         bookRepository.save(book);
-
 
     }
 }

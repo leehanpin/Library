@@ -13,5 +13,7 @@ public interface LibraryService extends Library {
 
     Book returnBook(Integer id);
 
+    Book changeCondition(Integer id, String condition);
+
     void insertBook(String BookName);
 }

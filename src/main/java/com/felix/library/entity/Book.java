@@ -19,4 +19,6 @@ public class Book implements Serializable {
 
     private String existing;
 
+    private String condition;
+
 }
