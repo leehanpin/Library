@@ -60,7 +60,7 @@ public class LibraryServiceImpl implements LibraryService {
 
         RentalRecord record = new RentalRecord();
         record.setBookName(book.getBookName());
-        record.setStatus("1");//1:借出
+        record.setStatus("2");//2:借出
         record.setBookId(book.getId());
         record.setMemberId(member.getId());
         recordRepository.save(record);
@@ -99,13 +99,18 @@ public class LibraryServiceImpl implements LibraryService {
 
         RentalRecord record = new RentalRecord();
         record.setBookName(book.getBookName());
-        record.setStatus("2");//2:歸還
+        record.setStatus("1");//1:歸還
         record.setBookId(book.getId());
         record.setMemberId(member.getId());
         recordRepository.save(record);
 
         book.setExisting("Y");
         bookRepository.save(book);
+
+        List<Book> bookList = new ArrayList<>();
+        bookList.add(book);
+        response.setDataList(bookList);
+        response.setMsg("還書成功");
         return response;
     }
 
