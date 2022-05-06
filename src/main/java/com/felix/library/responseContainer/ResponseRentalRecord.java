@@ -1,6 +1,6 @@
 package com.felix.library.responseContainer;
 
-import com.felix.library.repository.RentalRecordRepository;
+import com.felix.library.entity.RentalRecord;
 import lombok.Data;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class ResponseRentalRecord {
 
-    private List<RentalRecordRepository> dataList;
+    private List<RentalRecord> dataList;
 
     private String msg;
 }

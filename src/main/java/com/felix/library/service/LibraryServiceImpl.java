@@ -13,8 +13,10 @@ import com.felix.library.responseContainer.ResponseBook;
 import com.felix.library.responseContainer.ResponseMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -159,4 +161,6 @@ public class LibraryServiceImpl implements LibraryService {
         response.setMsg("用戶新增成功");
         return response;
     }
+
+
 }

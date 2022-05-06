@@ -21,9 +21,9 @@ public class LibraryController {
 
     //這邊純粹亂玩
     @PostMapping("/sys")
-    public void test(@RequestBody Member ttt) {
+    public void test(@RequestBody Member member) {
 
-        System.out.println(ttt);
+        System.out.println(member);
     }
 
     @PostMapping("/insert")
